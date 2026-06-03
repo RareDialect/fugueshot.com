@@ -97,7 +97,7 @@ p {
 
 .item-store {
     transform: scale(0.9);
-    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow instead of animation */
+    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow */
 }
 
 /* =========================================
@@ -146,32 +146,36 @@ p {
 
 .item-social {
     transform: scale(0.7);
-    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow instead of animation */
+    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow */
 }
 
 .container-buttons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem; /* Gap matched exactly to the GIFs */
     margin: 2rem auto;
+    width: 100%;
 }
 
 .item-button {
     display: flex;
     justify-content: center;
-    width: 100%;
+    flex: 1; /* Lets the buttons grow equally */
+    max-width: 220px; /* Constrains them so they aren't massive, but larger than before */
 }
 
 .item-button img {
-    width: 50%; /* Strictly shrinks the buttons to 50% */
+    width: 100%; /* Fills the container smoothly */
+    height: auto;
     border-radius: 15px;
-    box-shadow: 0 6px 0 var(--orange); /* Added the shadow effect */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 0 var(--orange); /* The thick shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; /* Prepares for hover effect */
 }
 
 .item-button img:hover {
-    transform: scale(1.1); /* Buttons grow on hover */
-    box-shadow: 0 8px 0 var(--orange); /* Shadow adapts as it grows */
+    transform: translateY(4px); /* Pushes the button down */
+    box-shadow: 0 2px 0 var(--orange); /* Shrinks the shadow to complete the 'press' */
+    filter: brightness(1.2); /* Brightens the image to mimic a color change */
 }
 
 .icon {
@@ -212,8 +216,7 @@ p {
     margin: 4rem auto;
     background-color: var(--highlight);
     box-shadow: 0 6px 0 var(--orange);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    /* Removed the floatAnim to make it perfectly still */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .wishlist-button:hover {
@@ -224,6 +227,7 @@ p {
 
 .wishlist-button p {
     font-size: 2.5rem;
+    font-weight: 900;
     color: var(--background);
     margin: 0;
 }
@@ -327,8 +331,6 @@ footer {
     100% { transform: translateY(5px); }
 }
 
-/* Removed glowAnim and askewAnim as they are no longer needed */
-
 /* =========================================
    MOBILE ADJUSTMENTS
    ========================================= */
@@ -341,5 +343,8 @@ footer {
         font-size: 2.2rem;
     }
     
-    /* Removed the gameplay grid collapse so it stays 2x2! */
+    /* Ensuring buttons remain somewhat visible on extremely tiny screens */
+    .container-buttons {
+        flex-direction: row;
+    }
 }
