@@ -97,7 +97,7 @@ p {
 
 .item-store {
     transform: scale(0.9);
-    animation: glowAnim 4s ease-in-out infinite alternate;
+    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow instead of animation */
 }
 
 /* =========================================
@@ -120,16 +120,16 @@ p {
 
 .container-gameplay {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Forces a 2x2 grid */
+    grid-template-columns: 1fr 1fr; /* Strict 2x2 grid always */
     gap: 1.5rem;
     margin: 2rem 0;
-    border: none; /* No outer container border */
+    border: none;
 }
 
 .container-gameplay img {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid var(--item); /* Individual borders for each gif */
+    border: 2px solid var(--item); /* Individual borders */
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -146,28 +146,32 @@ p {
 
 .item-social {
     transform: scale(0.7);
-    animation: glowAnim 4s ease-in-out infinite alternate;
+    filter: drop-shadow(0px 0px 6px var(--highlight)); /* Constant glow instead of animation */
 }
 
 .container-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
     margin: 2rem auto;
-    justify-items: center;
-    align-items: center;
+}
+
+.item-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .item-button img {
-    width: 50%; /* Shrunk to 50% */
+    width: 50%; /* Strictly shrinks the buttons to 50% */
     border-radius: 15px;
-    transition: transform 0.2s ease;
-    /* Static by default, removed the askewAnim */
+    box-shadow: 0 6px 0 var(--orange); /* Added the shadow effect */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .item-button img:hover {
-    transform: scale(1.1); /* Grows on hover */
-    /* Removed the brightness filter so colors stay native */
+    transform: scale(1.1); /* Buttons grow on hover */
+    box-shadow: 0 8px 0 var(--orange); /* Shadow adapts as it grows */
 }
 
 .icon {
@@ -208,8 +212,8 @@ p {
     margin: 4rem auto;
     background-color: var(--highlight);
     box-shadow: 0 6px 0 var(--orange);
-    animation: floatAnim 3s ease-in-out infinite alternate;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Removed the floatAnim to make it perfectly still */
 }
 
 .wishlist-button:hover {
@@ -236,7 +240,7 @@ p {
     text-align: center;
     margin-bottom: 2rem;
     color: var(--item);
-    text-transform: uppercase; /* Forces all caps */
+    text-transform: uppercase;
 }
 
 .container-team {
@@ -323,10 +327,7 @@ footer {
     100% { transform: translateY(5px); }
 }
 
-@keyframes glowAnim {
-    0% { filter: drop-shadow(0px 0px 2px var(--highlight)); }
-    100% { filter: drop-shadow(0px 0px 8px var(--highlight)); }
-}
+/* Removed glowAnim and askewAnim as they are no longer needed */
 
 /* =========================================
    MOBILE ADJUSTMENTS
@@ -340,8 +341,5 @@ footer {
         font-size: 2.2rem;
     }
     
-    /* Allow gameplay GIFs to stack on very small screens to avoid getting too squished */
-    .container-gameplay {
-        grid-template-columns: 1fr;
-    }
+    /* Removed the gameplay grid collapse so it stays 2x2! */
 }
