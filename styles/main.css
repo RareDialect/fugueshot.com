@@ -120,15 +120,16 @@ p {
 
 .container-gameplay {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr; /* Forces a 2x2 grid */
     gap: 1.5rem;
     margin: 2rem 0;
+    border: none; /* No outer container border */
 }
 
 .container-gameplay img {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid var(--item);
+    border: 2px solid var(--item); /* Individual borders for each gif */
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -150,22 +151,23 @@ p {
 
 .container-buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin: 2rem auto;
     justify-items: center;
+    align-items: center;
 }
 
 .item-button img {
-    max-width: 100%;
+    width: 50%; /* Shrunk to 50% */
     border-radius: 15px;
-    transition: transform 0.2s ease, filter 0.2s ease;
-    animation: askewAnim 4s ease-in-out infinite alternate;
+    transition: transform 0.2s ease;
+    /* Static by default, removed the askewAnim */
 }
 
 .item-button img:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2);
+    transform: scale(1.1); /* Grows on hover */
+    /* Removed the brightness filter so colors stay native */
 }
 
 .icon {
@@ -218,7 +220,6 @@ p {
 
 .wishlist-button p {
     font-size: 2.5rem;
-    font-weight: bold;
     color: var(--background);
     margin: 0;
 }
@@ -235,11 +236,11 @@ p {
     text-align: center;
     margin-bottom: 2rem;
     color: var(--item);
+    text-transform: uppercase; /* Forces all caps */
 }
 
 .container-team {
     display: grid;
-    /* This auto-fit magic makes it responsive automatically! */
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
 }
@@ -327,11 +328,6 @@ footer {
     100% { filter: drop-shadow(0px 0px 8px var(--highlight)); }
 }
 
-@keyframes askewAnim {
-    0% { transform: translateY(-3px) rotate(1deg); }
-    100% { transform: translateY(3px) rotate(-1deg); }
-}
-
 /* =========================================
    MOBILE ADJUSTMENTS
    ========================================= */
@@ -342,5 +338,10 @@ footer {
     
     .team-title {
         font-size: 2.2rem;
+    }
+    
+    /* Allow gameplay GIFs to stack on very small screens to avoid getting too squished */
+    .container-gameplay {
+        grid-template-columns: 1fr;
     }
 }
